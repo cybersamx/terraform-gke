@@ -1,0 +1,13 @@
+# Credit: https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/
+apiVersion: v1
+kind: Service
+metadata:
+    name: hello
+spec:
+    selector:
+        app: hello
+        tier: backend
+    ports:
+        - protocol: TCP
+          port: 80
+          targetPort: http
