@@ -1,6 +1,6 @@
 # Terraform GKE
 
-This is a simple Terraform project that was used in the demo for my talk "Terraforming on GCP" talk at the Google Cloud Platform LA Meetup at Google Playa Vista, Nov 6, 2019.
+This is a simple Terraform project that was used in the demo for my talk "[Terraforming your Infrastructure on GCP](https://www.slideshare.net/Cybersam/terraforming-your-infrastructure-on-gcp)" talk at the Google Cloud Platform LA Meetup at Google Playa Vista, Nov 6, 2019. 
 
 In the talk, I mentioned that infrastructure as code (IaC) works on different abstract levels of a system. And there are tools available at each of these levels. Combine different tools to best meet your needs. 
 
@@ -12,7 +12,7 @@ This project demonstrates how IaC tools operate at the Cloud infrastructure, clu
 * Public subnetwork
 * GKE cluster with a node pool compromised of 3 nodes
 
-We also save the Terraform state file in a centralized Google Cloud Storage (GCS) bucket for multi-person/team setting. Once we have the infrastructure resources and Kubernetes cluster set up, we deploy the [Hello World](https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/) application Docker images to the cluster. The Docker images are pulled from Google Container Registry (GCR), although any public Docker registry should work. The Kubernetes manifest files needed for deployment can be found in the [test](tests) folder.
+We also save the Terraform state file in a centralized Google Cloud Storage (GCS) bucket for multi-person/team setting. Once we have the infrastructure resources and Kubernetes cluster set up, we deploy a "[Hello World](https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/)" application Docker images to the cluster. The Docker images are pulled from Google Container Registry (GCR), although any public Docker registry should work. The Kubernetes manifest files needed for deployment can be found in the [test](tests) folder.
 
 ![Simple GKE cluster](docs/images/simple-gke-cluster.png)
 
@@ -81,4 +81,22 @@ We also save the Terraform state file in a centralized Google Cloud Storage (GCS
    $ # Success if you see the above output
    ```
    
-1. When you done, destroy the infrastructure that Terrafrom
+1. When you done playing around with Terraform, destroy the infrastructure that Terrafrom created unless you want to continue paying GCP for the resources you created.
+
+   ```bash
+   $ cd ../dev
+   $ terraform destroy
+   ```
+   
+## Project Layout
+
+Since Terraform is used to deploy infrastructure on a continual basis, the process has profound impact on the integrity and operations of production. The project layout uses the concept described in the book "Terraform: Up and Running, 2nd Edition" by [Yevgeniy Brikman](https://www.ybrikman.com/), in which we use folder `dev`, `staging`, and `prod` to contain Terraform configurations associated with environments development, staging, and production respectively. This provide some isolation at the code level and deployment, eg. configurations in `dev` could deploy to a different GCP project or name the resources using a different prefix.
+
+## Reference and Credits
+
+* [Terraforming your Infrastructure on GCP](https://www.slideshare.net/Cybersam/terraforming-your-infrastructure-on-gcp)
+* [Terraform](https://www.terraform.io/)
+* [Terraform Google Provider Plug-in](https://www.terraform.io/docs/providers/google/)
+* [Terraform: Up and Running, 2nd Edition](https://www.terraformupandrunning.com/)
+* [Kubernetes Example: Connect a Front End to a Back End Using a Service](https://kubernetes.io/docs/tasks/access-application-cluster/connecting-frontend-backend/)
+* [GitOps](https://www.weave.works/technologies/gitops/)
